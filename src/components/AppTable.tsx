@@ -6,7 +6,7 @@ import {ITransaction} from '../types/ITransaction.ts'
 interface ITransactionsTableProps {
     transactions: ITransaction[],
     onRemove: (description: string, category: string, amount: number) => void
-    onEdit: (transaction: ITransaction) => void
+  
 }
 
 const AppTable: React.FC<ITransactionsTableProps> = ({transactions,onRemove}: ITransactionsTableProps) => {

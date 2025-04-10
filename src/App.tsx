@@ -19,8 +19,6 @@ function App() {
     },
   ]);
 
-  const [selectedTransaction, setSelectedTransaction] = useState<ITransaction | null>(null);
-
   const addTransaction = (description: string, amount: number, category: string) => {
     const newTransaction = {
       description,
@@ -41,24 +39,7 @@ function App() {
     );
   };
 
-  // Handle edit action
-  const handleEditTransaction = (transaction: ITransaction) => {
-    setSelectedTransaction(transaction);
-    setShowModal(true);
-  };
 
-  // Update existing transaction
-  const handleUpdateTransaction = (updatedTransaction: ITransaction) => {
-    setTransactions((prev) =>
-      prev.map((transaction) =>
-        transaction.description === updatedTransaction.description &&
-        transaction.category === updatedTransaction.category
-          ? updatedTransaction
-          : transaction
-      )
-    );
-    setShowModal(false);
-  };
 
   return (
     <div className="d-flex flex-column min-vh-100">
@@ -115,7 +96,7 @@ function App() {
           <AppTable
             transactions={transactions}
             onRemove={handleRemoveTransaction}
-            onEdit={handleEditTransaction} // Pass the edit function here
+           
           />
         </Row>
       </Container>
