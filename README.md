@@ -1,54 +1,105 @@
-# React + TypeScript + Vite
+# Expense Tracker
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A comprehensive React and TypeScript application for tracking personal finances. This application allows users to manage their income and expenses with an intuitive interface.
 
-Currently, two official plugins are available:
+![image](https://github.com/user-attachments/assets/e6deb9ea-c2fc-4641-ab64-65be4c38d60a)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Features
 
-## Expanding the ESLint configuration
+- **Transaction Management**
+  - Add new income and expense transactions
+  - Edit existing transactions
+  - Delete unwanted transactions
+  - Search transactions by description or category
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- **Financial Dashboard**
+  - Overview of current balance
+  - Summary of income and expenses
+  - Recent transaction history
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+- **Statistics**
+  - Total income and expenses
+  - Monthly financial summary
+  - Visual representation of spending patterns
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+- **Responsive Design**
+  - Works on mobile, tablet, and desktop devices
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## Technologies Used
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
-```
+- React.js
+- TypeScript
+- React Router for navigation
+- React Bootstrap for UI components
+- CSS for custom styling
+
+## Installation
+
+1. Clone the repository:
+   ```
+   git clone https://github.com/yourusername/expense-tracker.git
+   ```
+
+2. Navigate to the project directory:
+   ```
+   cd expense-tracker
+   ```
+
+3. Install dependencies:
+   ```
+   npm install
+   ```
+
+4. Start the development server:
+   ```
+   npm start
+   ```
+
+5. Open your browser and navigate to:
+   ```
+   http://localhost:3000
+   ```
+
+## Future Improvements
+
+### Category Management
+
+The current implementation fetches unique categories from transactions, which is not efficient. Future improvements will include:
+
+- Separate category management system independent of transactions
+- Ability to add and remove categories
+- Persistently store categories even when all transactions of a type are deleted
+- Category-based filtering and reporting
+
+### Additional Planned Enhancements
+
+- Data persistence with localStorage or a backend database
+- Export functionality for reports (CSV, PDF)
+- Budget setting and tracking
+- Recurring transaction support
+- Advanced filtering and sorting options
+- Data visualization with charts and graphs
+- Dark/light theme toggle
+- User authentication and profiles
+- Mobile app version
+
+## Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add some amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
+
+## License
+
+This project is licensed under the MIT License - see the LICENSE file for details.
+
+## Acknowledgments
+
+- [React](https://reactjs.org/)
+- [TypeScript](https://www.typescriptlang.org/)
+- [React Bootstrap](https://react-bootstrap.github.io/)
+- [React Router](https://reactrouter.com/)
