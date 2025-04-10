@@ -27,11 +27,10 @@ A comprehensive React and TypeScript application for tracking personal finances.
 
 ## Technologies Used
 
-- React.js
+- React.Ts
 - TypeScript
 - React Router for navigation
 - React Bootstrap for UI components
-- CSS for custom styling
 
 ## Installation
 
@@ -52,12 +51,12 @@ A comprehensive React and TypeScript application for tracking personal finances.
 
 4. Start the development server:
    ```
-   npm start
+   npm run dev
    ```
 
 5. Open your browser and navigate to:
    ```
-   http://localhost:3000
+   http://localhost:5173
    ```
 
 ## Future Improvements
