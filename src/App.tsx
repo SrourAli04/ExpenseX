@@ -1,112 +1,125 @@
 import './App.css';
+import { useState } from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import AppNavbar from './components/AppNavbar';
 import AppFooter from './components/AppFooter';
-import { Container } from 'react-bootstrap';
-import { Row, Col } from 'react-bootstrap';
-import Button from 'react-bootstrap/Button';
-import { useState } from 'react';
-import AppTransactionModal from './components/AppTransactionModal';
-import AppTable from './components/AppTable.tsx';
+import Dashboard from './pages/Dashboard.tsx';
+import Stats from './pages/Stats.tsx';
 import { ITransaction } from './types/ITransaction.ts';
 
-function App() {
-  const [showModal, setShowModal] = useState(false);
+
+const App: React.FC = () => {
+  // Initialize with static array of transactions instead of loading from localStorage
   const [transactions, setTransactions] = useState<ITransaction[]>([
     {
-      description: 'transaction1',
-      amount: 2,
-      category: 'test',
+      id: '1',
+      description: 'Initial Balance',
+      amount: 100,
+      category: 'Income',
+      date: new Date().toISOString()
     },
+    {
+      id: '2',
+      description: 'Groceries',
+      amount: -45.75,
+      category: 'Food',
+      date: new Date().toISOString()
+    },
+    {
+      id: '3',
+      description: 'Salary',
+      amount: 2500,
+      category: 'Income',
+      date: new Date().toISOString()
+    },
+    {
+      id: '4',
+      description: 'Rent',
+      amount: -1200,
+      category: 'Housing',
+      date: new Date().toISOString()
+    },
+    {
+      id: '5',
+      description: 'Utilities',
+      amount: -150.50,
+      category: 'Bills',
+      date: new Date().toISOString()
+    }
   ]);
+ 
+  // Calculate financial summaries
+  const calculateSummary = () => {
+    const income = transactions
+      .filter(t => t.amount > 0)
+      .reduce((sum, t) => sum + t.amount, 0);
+   
+    const expenses = transactions
+      .filter(t => t.amount < 0)
+      .reduce((sum, t) => sum + t.amount, 0);
+   
+    const balance = income + expenses; // expenses are already negative
+   
+    return { income, expenses: Math.abs(expenses), balance };
+  };
 
   const addTransaction = (description: string, amount: number, category: string) => {
     const newTransaction = {
+      id: Date.now().toString(),
       description,
       amount,
       category,
+      date: new Date().toISOString()
     };
-
-    setTransactions((prev) => [...prev, newTransaction]);
-    setShowModal(false);
+    setTransactions(prev => [...prev, newTransaction]);
   };
 
-  const handleRemoveTransaction = (description: string, category: string, amount: number) => {
-    setTransactions((prev) =>
-      prev.filter(
-        (t) =>
-          !(t.description === description && t.amount === amount && t.category === category)
+  const updateTransaction = (
+    id: string,
+    description: string,
+    amount: number,
+    category: string
+  ) => {
+    setTransactions(prev =>
+      prev.map(t =>
+        t.id === id
+          ? { ...t, description, amount, category }
+          : t
       )
     );
   };
 
-
+  const removeTransaction = (id: string) => {
+    setTransactions(prev => prev.filter(t => t.id !== id));
+  };
 
   return (
-    <div className="d-flex flex-column min-vh-100">
-      <AppNavbar />
-      <Container className="flex-grow-1">
-        <div className="mt-2">
-          <h2 className="text-center">Expense Tracker</h2>
+    <Router>
+      <div className="d-flex flex-column min-vh-100">
+        <AppNavbar />
+        <div className="flex-grow-1">
+          <Routes>
+            <Route
+              path="/"
+              element={
+                <Dashboard
+                  transactions={transactions}
+                  summary={calculateSummary()}
+                  onAdd={addTransaction}
+                  onUpdate={updateTransaction}
+                  onRemove={removeTransaction}
+                />
+              }
+            />
+            <Route
+              path="/stats"
+              element={<Stats transactions={transactions}/>}
+            />
+          </Routes>
         </div>
-        <Row>
-          <Col xs={12} md={4}>
-            <div className="p-3 border">
-              <h5>Total Income</h5>
-              <h4 className="text-success">$20</h4>
-            </div>
-          </Col>
-          <Col xs={12} md={4}>
-            <div className="p-3 border">
-              <h5>Total Expenses</h5>
-              <h4 className="text-danger">$20</h4>
-            </div>
-          </Col>
-          <Col xs={12} md={4}>
-            <div className="p-3 border">
-              <h5>Balance</h5>
-              <h4>$20</h4>
-            </div>
-          </Col>
-        </Row>
-        <Row className="mt-2">
-          <Col xs={12} md={6}>
-            <div className="p-2 ">
-              <input type="text" className="form-control" placeholder="Search" />
-            </div>
-          </Col>
-          <Col xs={12} md={4}>
-            <div className="p-2 ">
-              <select name="category" className="form-select">
-                <option value="">Select category</option>
-                <option value="test1">Test 1</option>
-                <option value="test2">Test 2</option>
-                <option value="test3">Test 3</option>
-              </select>
-            </div>
-          </Col>
-          <Col xs={12} md={2}>
-            <div className="p-2 ">
-              <Button variant="primary" onClick={() => setShowModal(true)}>
-                Add Category
-              </Button>
-            </div>
-          </Col>
-        </Row>
-        <Row>
-          <AppTable
-            transactions={transactions}
-            onRemove={handleRemoveTransaction}
-           
-          />
-        </Row>
-      </Container>
-      <AppTransactionModal
-        show={showModal}
-        handleClose={() => setShowModal(false)}
-        onAdd={addTransaction}
-      />
-      <AppFooter />
-    </div>
+        <AppFooter />
+      </div>
+    </Router>
   );
 }
 
