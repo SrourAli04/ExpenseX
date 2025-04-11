@@ -148,7 +148,6 @@ const Dashboard:React.FC<DashboardProps> = ({
         />
       </Row>
       
-      {/* Add Transaction Modal */}
       <AppTransactionModal
         show={showAddModal}
         handleClose={() => setShowAddModal(false)}

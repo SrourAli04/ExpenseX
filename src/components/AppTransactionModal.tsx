@@ -35,7 +35,7 @@ const AppTransactionModal: React.FC<IAppTransactionModalProps> = ({
     category: ""
   });
 
-  // Reset form when modal is opened/closed or initialValues change
+ 
   useEffect(() => {
     if (initialValues) {
       setDescription(initialValues.description);
