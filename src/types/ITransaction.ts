@@ -1,4 +1,4 @@
-// src/types/ITransaction.ts
+
 export interface ITransaction {
     id: string;
     description: string;
